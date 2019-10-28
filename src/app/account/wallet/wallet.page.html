@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+  	<ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+    	<ion-icon name="wallet"></ion-icon> {{ '#Wallets' | dgTranslate }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card>
+    <ion-card-content text-center>
+      <h1>{{ total | cryptoAmount }} {{ inescoinConfig.symbol }}</h1>
+      <small>{{ accounts.length }} {{ '#Wallets' | dgTranslate }}</small>
+    </ion-card-content>
+  </ion-card>
+	<ion-list lines="none" class="app-list">
+    <ion-item *ngFor="let account of accounts" (click)="openWalletAccountModal(account)">
+      <ion-label class="ion-text-center">
+        <h2>{{ (account.amount | cryptoAmount) || 0.00 }} {{ inescoinConfig.symbol }}</h2>
+        <p><ion-icon name="wallet"></ion-icon> {{ account.address }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openWalletCreateModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

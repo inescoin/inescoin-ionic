@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title><ion-icon name="code-working"></ion-icon> {{ '#Transfer informations' | dgTranslate }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#Amount' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label [class.isMyTransfer]="account.address === transfer.from" [class.isNotMyTransfer]="account.address !== transfer.from">
+					<h2>
+	        	<span *ngIf="account.address === transfer.from">-</span>
+	        	<span *ngIf="account.address !== transfer.from">+</span>
+	        	{{ (transfer.amount | cryptoAmount) || 0.00 }} {{ inescoinConfig.symbol }}
+	        </h2>
+	      </ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#Date' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label>{{ (transfer.createdAt * 1000) | date:'medium' }}</ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#From' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label><span class="wrap-text">{{ transfer.from }}</span></ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#To' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label><span class="wrap-text">{{ transfer.to }}</span></ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#Transfer Hash' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label><span class="wrap-text">{{ transfer.hash }}</span></ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#Transaction Hash' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label><span class="wrap-text">{{ transfer.transactionHash }}</span></ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+	  <ion-list-header class="label-title">
+	    {{ '#Block Height' | dgTranslate }}
+	  </ion-list-header>
+
+	  <ion-item-sliding>
+	    <ion-item>
+	      <ion-label>{{ transfer.height }}</ion-label>
+	    </ion-item>
+		</ion-item-sliding>
+	</ion-list>
+
+</ion-content>

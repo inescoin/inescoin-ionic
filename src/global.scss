@@ -1,0 +1,264 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+.header .toolbar .toolbar-content .toolbar-title {
+    align-items: center;
+}
+
+.app-list {
+
+    margin-top: 7px !important;
+    padding: 5px;
+    background: none;
+
+    .item {
+
+        border-radius: 10px;
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+        margin-bottom: 5px;
+
+        ion-avatar {
+            height: 60px;
+            width: 60px;
+        }
+
+        p[item-end] {
+            text-align: right;
+            color: #CFCFCF;
+        }
+
+    }
+
+}
+
+.chat-bubble {
+    width: auto;
+    max-width: 75%;
+    min-width: 25%;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 10px;
+    display: block;
+    clear: both;
+    position: relative;
+    margin-bottom: 0;
+
+    &.received {
+        background: #FFF;
+        float: left;
+    }
+
+    &.send {
+        background: var(--ion-color-primary);
+        float: right;
+        text-align: right;
+        color: #fff;
+    }
+
+    h6 {
+        margin: 0;
+        margin-bottom: 4px;
+        font-weight: 400;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+        opacity: .4;
+    }
+
+}
+
+.isMyTransfer h2, .isNotMyTransfer h2 {
+	font-weight: 700;
+}
+.isMyTransfer h2 {
+	color: var(--ion-color-danger);
+}
+
+.isNotMyTransfer h2 {
+	color: var(--ion-color-success);
+}
+
+ion-icon {
+	vertical-align: middle;
+}
+.chat-container {
+    height: calc(100% - 60px);
+    overflow: scroll
+}
+.chat-controls {
+    background: #FFF;
+    padding: 3px 2px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -1px 43px 5px rgba(98,98,98,.1);
+    z-index: 9;
+
+    .option {
+        height: 0;
+        overflow: hidden;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+
+        ion-col {
+            color: var(--ion-color-primary);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        ion-icon::before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            font-size: 3rem;
+            line-height: 65px;
+        }
+        ion-icon {
+            color: var(--ion-color-primary);
+            display: block;
+            width: 25px;
+            height: 25px;
+            background: #f3f9f5;
+            border-radius: 50px;
+            margin: auto;
+            margin-bottom: auto;
+            padding: 15px;
+            position: relative;
+            margin-bottom: 7px;
+        }
+    }
+    &.active {
+        .option {
+            height: 230px;
+            transition: all .3s;
+        }
+    }
+
+    ion-row ion-col {
+        ion-list {
+            margin: 0 -2px;
+
+            ion-item {
+                border-radius: 7px;
+                --background: #fff;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border-bottom: none !important;
+            }
+        }
+
+        p {
+            border-radius: 7px;
+            font-size: 14pt;
+            margin: 0;
+            line-height: 44px;
+            height: 44px;
+            color: #bcbcbc;
+            min-width: 20px;
+            overflow: hidden;
+
+            ion-icon {
+                width: 22px;
+                height: 22px;
+                text-align: center;
+                font-size: 2.5rem;
+                color: #828282;
+                margin-top: 11px;
+                color: #828282;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+}
+
+.contact-avatar {
+    height: 40px;
+    width: 40px;
+}
+
+.logo-box {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 30px;
+
+    img {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+    }
+}
+
+.profile-image {
+    width: 70px !important;
+    height: 70px !important;
+}
+.contact-profile-img {
+    background-color: #000;
+    img {
+        display: block;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+.text-primary {color: var(--ion-color-primary) !important;}
+.text-secondary {color: var(--ion-color-secondary) !important;}
+.text-danger {color: var(--ion-color-danger) !important;}
+.text-muted {color: #999;}
+
+.ng-touched.ng-valid {
+  border-bottom: 2px solid var(--ion-color-success); /* green */
+}
+
+.ng-touched.ng-invalid:not(form)  {
+  border-bottom: 2px solid var(--ion-color-danger); /* red */
+}
+
+.wrap-text {
+  overflow: visible;
+  text-overflow: unset;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+}
+

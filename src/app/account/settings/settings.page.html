@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+  	<ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="cog"></ion-icon> {{ '#Settings' | dgTranslate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-item>
+	  <ion-label>{{ '#Language' | dgTranslate }}</ion-label>
+	  <ion-select slot="end" [(ngModel)]="chooseLanguage" (ionChange)="changeLanguage()">
+	    <ion-select-option value="fr">Français</ion-select-option>
+			<ion-select-option value="it">Italiano</ion-select-option>
+			<ion-select-option value="en">English</ion-select-option>
+			<ion-select-option value="es">Español</ion-select-option>
+			<ion-select-option value="ru">русский</ion-select-option>
+			<ion-select-option value="cn">中国</ion-select-option>
+			<ion-select-option value="jp">日本の</ion-select-option>
+	  </ion-select>
+	</ion-item>
+</ion-content>

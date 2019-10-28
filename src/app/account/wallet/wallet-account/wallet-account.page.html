@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title><ion-icon name="wallet"></ion-icon> {{ account.address }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+	<ion-card class="bg-card">
+	  <ion-card-header>
+	    <ion-card-subtitle class="ion-text-center wallet-account-amount">
+    		<h2>{{ (account.amount | cryptoAmount) || 0.00 }} {{ inescoinConfig.symbol }}</h2>
+	    	<small *ngIf="account.total">{{ account.total }} {{ ' #transactions' | dgTranslate :account.total }}</small>
+	  	</ion-card-subtitle>
+	  </ion-card-header>
+
+	  <ion-card-content class="ion-text-center">
+	    <p  *ngIf="account && account.wallet">
+	    	<input type="type" class="form-control" placeholder="{{ '#Label' | dgTranslate }}" [(ngModel)]="account.wallet.label" />
+				<ngx-qrcode
+				      qrc-element-type="canvas"
+				      [qrc-value]="getQrCodeAddress()"
+				      qrc-class="aclass"
+				      qrc-errorCorrectionLevel="L">
+				</ngx-qrcode>
+				<input type="type" class="form-control" placeholder="{{ '#Wallet Id' | dgTranslate }}" [(ngModel)]="account.wallet.walletId" />
+	    </p>
+
+	    <ion-button color="light" class="ion-text-center" (click)="copy()"><ion-icon name="copy" ></ion-icon> {{ ' #Copy' | dgTranslate  }}</ion-button>
+	  </ion-card-content>
+	</ion-card>
+
+	<div *ngIf="account.transactions && account.transactions.length" >
+
+		<ion-list lines="none" class="app-list">
+			<ion-list-header>
+		    <ion-label>{{ '#Last 100 transfers' | dgTranslate }}</ion-label>
+		  </ion-list-header>
+	    <ion-item *ngFor="let transfer of account.transactions" (click)="openWalletTransferModal(transfer, account)">
+	      <ion-label class="ion-text-center" [class.isMyTransfer]="account.address === transfer.from" [class.isNotMyTransfer]="account.address !== transfer.from">
+	        <h2>
+	        	<span *ngIf="account.address === transfer.from">-</span>
+	        	<span *ngIf="account.address !== transfer.from">+</span>
+	        	{{ (transfer.amount | cryptoAmount) || 0.00 }} {{ inescoinConfig.symbol }}
+	        </h2>
+	        <p>{{ transfer.from | dgTruncate :{limit: 15, position: 'center'} }} <ion-icon name="arrow-round-forward"></ion-icon> {{ transfer.to | dgTruncate :{limit: 15, position: 'center'} }}</p>
+	        <p>{{ (transfer.createdAt * 1000) | date:'medium' }}</p>
+	      </ion-label>
+	    </ion-item>
+	  </ion-list>
+
+	</div>
+
+</ion-content>

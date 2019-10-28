@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+  	<ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="send"></ion-icon> {{ '#Send' | dgTranslate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-list *ngIf="!isSummaryStep">
+	  <ion-item>
+	    <ion-label>{{ '#From' | dgTranslate }}</ion-label>
+	    <ion-select [(ngModel)]="from">
+	    	<ion-select-option
+	    		*ngFor="let address of getAdressesArray()"
+	    		value="{{ address.address }}">
+	    		 {{ address.address }} - {{ address.amount }} {{ inescoinConfig.symbol }}
+	    	</ion-select-option>
+	    </ion-select>
+	  </ion-item>
+	  <ion-item>
+	    	<ion-label>{{ '#Balance' | dgTranslate }}</ion-label>
+		    <b>{{ getAvailableBalance() }} {{ inescoinConfig.symbol }}</b>
+	  </ion-item>
+		<ion-button expand="block" color="light" (click)="openSelectContactModal()">
+			<ion-icon icon="contacts"></ion-icon> {{ '#Contacts' | dgTranslate }}
+		</ion-button>
+
+	  <ion-item>
+	    <ion-label *ngIf="!transfers[0].label">{{ '#To' | dgTranslate }}</ion-label>
+	    <ion-label *ngIf="transfers[0].label">{{ transfers[0].label }}</ion-label>
+	    <small>{{ transfers[0].to }}</small>
+	  </ion-item>
+
+	  <ion-item>
+	    <ion-label>{{ '#Amount' | dgTranslate }}</ion-label>
+	    <ion-input min="0.002" max="999999999.999999999" class="ion-text-right" slot="end" type="number" step=".000000001" value="0" (ionChange)="formataNumero($event)" [(ngModel)]="transfers[0].amount"></ion-input>
+	  </ion-item>
+
+	  <ion-item>
+	    <ion-label>{{ '#Wallet Id' | dgTranslate }}</ion-label>
+	    <ion-input class="ion-text-right" slot="end" type="text" maxlength="10" [(ngModel)]="transfers[0].walletId"></ion-input>
+	  </ion-item>
+
+	  <ion-item>
+	    <ion-label>{{ '#Fee' | dgTranslate }}</ion-label>
+			<ion-range min="0.001" max="1" step=".0001" [(ngModel)]="fee">
+				<ion-label slot="start">0.001</ion-label>
+      	<ion-label slot="end">1</ion-label>
+			</ion-range>
+		</ion-item>
+	</ion-list>
+
+	<ion-card *ngIf="isSummaryStep">
+	  <ion-card-content>
+	  	<p>{{ '#From' | dgTranslate }}: <b>{{ from }}</b></p>
+	  	<p>{{ '#To' | dgTranslate }}: <b>{{ transfers[0].to }}</b></p>
+	  	<p>{{ '#Wallet Id' | dgTranslate }}: <b>{{ transfers[0].walletId }}</b></p>
+	  </ion-card-content>
+	</ion-card>
+	<ion-card *ngIf="isSummaryStep">
+	  <ion-card-content>
+	  	<ion-label>{{ '#Password' | dgTranslate }}</ion-label>
+	  	<ion-input type="password" [(ngModel)]="password"></ion-input>
+	  </ion-card-content>
+	</ion-card>
+	<ion-card>
+	  <ion-card-content text-center>
+	    {{ '#Total' | dgTranslate }}: {{ getTotal() }} {{ inescoinConfig.symbol }}
+	    <br />
+	    <small>{{ '#Fee' | dgTranslate }}: <span class="ion-text-end">{{ fee }} {{ inescoinConfig.symbol }}</span></small>
+	  </ion-card-content>
+	</ion-card>
+	<div class="ion-padding" *ngIf="!isSummaryStep">
+		<ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="inProgress || !isValidTransaction()" (click)="showConfirmation()">{{ '#Next' | dgTranslate }}</ion-button>
+	</div>
+
+	<div class="ion-padding" *ngIf="isSummaryStep" text-center>
+		<ion-button type="submit" class="ion-no-margin" [disabled]="inProgress" (click)="send()">{{ '#Send' | dgTranslate }}</ion-button>
+	</div>
+	<div class="ion-padding" *ngIf="isSummaryStep" text-center>
+		<ion-button type="button" class="ion-no-margin" [disabled]="inProgress" color="light" (click)="isSummaryStep = false">
+			{{ '#Back' | dgTranslate }}
+		</ion-button>
+	</div>
+</ion-content>

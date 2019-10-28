@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>{{ '#Edit contact' | dgTranslate }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-card class="bg-card">
+    <ion-card-content class="ion-text-center">
+      <ngx-qrcode
+            qrc-element-type="canvas"
+            [qrc-value]="getQrContact()"
+            qrc-class="aclass"
+            qrc-errorCorrectionLevel="L">
+      </ngx-qrcode>
+
+      <ion-button color="light" class="ion-text-center" (click)="copy()"><ion-icon name="copy" ></ion-icon> {{ ' #Copy' | dgTranslate  }}</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="pendingRemove">
+    <p class="ion-text-center">{{ '#Are you sure?' | dgTranslate }}</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="light" type="submit" class="ion-no-margin" (click)="pendingRemove=false">{{ '#No' | dgTranslate }}</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" color="danger" type="submit" class="ion-no-margin" (click)="removeContact()">{{ '#Delete' | dgTranslate }}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <form [formGroup]="form" *ngIf="!pendingRemove">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">{{ '#Label' | dgTranslate }}</ion-label>
+        <ion-input type="text" formControlName="label"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">{{ '#Address' | dgTranslate }}</ion-label>
+        <ion-input type="text" formControlName="address"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">{{ '#Public Key' | dgTranslate }} <small>({{ '#Optional' | dgTranslate }})</small></ion-label>
+        <ion-input type="text" formControlName="publicKey"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">{{ '#Wallet Id' | dgTranslate }} <small>({{ '#Optional' | dgTranslate }})</small></ion-label>
+        <ion-input type="text" formControlName="walletId"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" [disabled]="!form.valid || pendingRemove" type="submit" class="ion-no-margin" (click)="updateContact()">{{ '#Update contact' | dgTranslate }}</ion-button>
+    </div>
+
+    <div class="ion-padding">
+      <ion-button expand="block" [disabled]="pendingRemove" color="danger" type="submit" class="ion-no-margin" (click)="pendingRemove=true">{{ '#Delete' | dgTranslate }}</ion-button>
+    </div>
+  </form>
+
+</ion-content>

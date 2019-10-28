@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>{{ '#Import account' | dgTranslate }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item *ngIf="file">
+      <ion-label position="stacked">{{ '#Password' | dgTranslate }} <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!file">
+			<ion-input type="number" (change)="loadWallet($event)" type="file"></ion-input>
+    </ion-item>
+  </ion-list>
+
+	<div class="ion-padding">
+		<ion-button expand="block" type="submit" class="ion-no-margin" (click)="importAccount()">{{ '#Import account' | dgTranslate }}</ion-button>
+	</div>
+</ion-content>

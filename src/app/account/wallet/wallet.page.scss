@@ -1,0 +1,45 @@
+.bg {
+    --background: rgba(var(--ion-color-primary-rgb), 0.05);
+}
+
+.wallet-bubble {
+    width: auto;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 10px;
+    display: block;
+    clear: both;
+    position: relative;
+    margin-bottom: 0;
+    background-color: #FFFFFF;
+
+    &.received {
+        background: #FFF;
+        float: left;
+    }
+
+    &.send {
+        background: var(--ion-color-primary);
+        float: right;
+        text-align: right;
+        color: #fff;
+    }
+
+    h6 {
+        margin: 0;
+        margin-bottom: 4px;
+        font-weight: 400;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+        opacity: .4;
+    }
+
+}
+
+.wallet-container {
+    height: calc(100% - 60px);
+    overflow: scroll
+}

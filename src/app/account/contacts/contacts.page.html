@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+  	<ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title><ion-icon name="contacts"></ion-icon> {{ '#Contacts' | dgTranslate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-searchbar (ionInput)="updateFilter($event)"
+    showCancelButton="focus"
+    cancelButtonText="{{ '#Cancel' | dgTranslate }}"></ion-searchbar>
+
+  <ion-list lines="none" class="app-list">
+    <ion-item *ngFor="let contact of contacts; let i = index" (click)="openContactsUpdateModal(contact, i)">
+      <ion-avatar slot="start">
+        <ion-icon name="contact" style="zoom: 4; vertical-align: middle;"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ contact.label }}</h2>
+        <p>{{ contact.address }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openContactsCreateModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

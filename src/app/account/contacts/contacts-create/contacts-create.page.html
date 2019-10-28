@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>{{ '#Create contact' | dgTranslate }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background: none transparent;">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button  expand="block" color="light" (click)="openScanModal()">
+          <ion-icon icon="qr-scanner"></ion-icon> {{ '#QrCode' | dgTranslate }}
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button  expand="block" color="light" (click)="paste()">
+          <ion-icon icon="md-albums"></ion-icon> {{ '#Paste' | dgTranslate }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <form [formGroup]="form">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">{{ '#Label' | dgTranslate }}</ion-label>
+        <ion-input type="text" formControlName="label"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">{{ '#Address' | dgTranslate }}</ion-label>
+        <ion-input type="text" formControlName="address"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">{{ '#Public Key' | dgTranslate }} <small>({{ '#Optional' | dgTranslate }})</small></ion-label>
+        <ion-input type="text" formControlName="publicKey"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">{{ '#Wallet Id' | dgTranslate }} <small>({{ '#Optional' | dgTranslate }})</small></ion-label>
+        <ion-input type="text" formControlName="walletId"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" [disabled]="!form.valid" type="submit" class="ion-no-margin" (click)="createContact()">{{ '#Create new contact' | dgTranslate }}</ion-button>
+    </div>
+  </form>
+
+</ion-content>
