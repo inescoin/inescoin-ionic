@@ -1,0 +1,8 @@
+{
+  "name": "inescoin-app",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "type": "angular"
+}
