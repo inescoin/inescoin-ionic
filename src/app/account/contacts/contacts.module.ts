@@ -16,7 +16,6 @@ import { ContactsPage } from './contacts.page';
 
 import { DoorgetsTruncateModule } from 'doorgets-ng-truncate';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { DoorgetsTranslateModule , NgTranslate, NgTranslateAbstract } from 'doorgets-ng-translate';
 
 import { ContactsCreatePage } from './contacts-create/contacts-create.page';
@@ -45,7 +44,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     NgxQRCodeModule,
-    ZXingScannerModule,
     DoorgetsTruncateModule,
     HttpModule,
     DoorgetsTranslateModule,

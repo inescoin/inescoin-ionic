@@ -10,7 +10,6 @@ import localeFr from '@angular/common/locales/fr';
 
 import { DoorgetsTruncateModule } from 'doorgets-ng-truncate';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { DoorgetsTranslateModule , NgTranslate, NgTranslateAbstract } from 'doorgets-ng-translate';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
@@ -60,7 +59,6 @@ registerLocaleData(localeFr, 'fr');
     IonicModule.forRoot(),
     AppRoutingModule,
     NgxQRCodeModule,
-    ZXingScannerModule,
     DoorgetsTruncateModule,
     FormsModule,
     ReactiveFormsModule,

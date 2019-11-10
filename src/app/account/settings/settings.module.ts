@@ -11,7 +11,6 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPage } from './settings.page';
 import { DoorgetsTruncateModule } from 'doorgets-ng-truncate';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { DoorgetsTranslateModule , NgTranslate, NgTranslateAbstract } from 'doorgets-ng-translate';
 
 export function newNgTranslate(http: Http) {
@@ -34,7 +33,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     NgxQRCodeModule,
-    ZXingScannerModule,
     DoorgetsTruncateModule,
     HttpModule,
     DoorgetsTranslateModule,

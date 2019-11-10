@@ -32,7 +32,6 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.9.1",
     "@ionic/storage": "^2.2.0",
-    "@zxing/ngx-scanner": "^2.0.1",
     "build": "0.1.4",
     "cordova-android": "^8.0.0",
     "cordova-clipboard": "^1.3.0",

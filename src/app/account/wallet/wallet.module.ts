@@ -13,7 +13,6 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 import { DoorgetsTruncateModule } from 'doorgets-ng-truncate';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { DoorgetsTranslateModule , NgTranslate, NgTranslateAbstract } from 'doorgets-ng-translate';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
@@ -53,7 +52,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     NgxQRCodeModule,
-    ZXingScannerModule,
     DoorgetsTruncateModule,
     HttpModule,
     DoorgetsTranslateModule,
