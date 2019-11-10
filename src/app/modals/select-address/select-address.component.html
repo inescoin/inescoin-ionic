@@ -1,0 +1,19 @@
+<ion-header class="ion-top-show">
+  <ion-toolbar color="tertiary">
+    <ion-title><ion-icon icon="wallet"></ion-icon> {{ '#Choose wallet' | dgTranslate }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none" class="app-list">
+    <ion-item *ngFor="let account of accounts" (click)="choose(account)">
+      <ion-label class="ion-text-center">
+        <h2>{{ (account.amount | cryptoAmount) || 0.00 }} {{ inescoinConfig.symbol }}</h2>
+        <p><ion-icon name="wallet"></ion-icon> {{ account.address }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
