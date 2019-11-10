@@ -76,9 +76,14 @@
 	<div class="ion-padding" *ngIf="!isSummaryStep">
 		<ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="inProgress || !isValidTransaction()" (click)="showConfirmation()">{{ '#Next' | dgTranslate }}</ion-button>
 	</div>
+	<div class="ion-padding" *ngIf="!isSummaryStep" text-center>
+		<ion-button type="button" class="ion-no-margin" color="light" (click)="resetForm()">
+			{{ '#Reset' | dgTranslate }}
+		</ion-button>
+	</div>
 
 	<div class="ion-padding" *ngIf="isSummaryStep" text-center>
-		<ion-button type="submit" class="ion-no-margin" [disabled]="inProgress" (click)="send()">{{ '#Send' | dgTranslate }}</ion-button>
+		<ion-button type="submit" class="ion-no-margin" [disabled]="inProgress || badPassword || !password.length" (click)="send()">{{ '#Send' | dgTranslate }}</ion-button>
 	</div>
 	<div class="ion-padding" *ngIf="isSummaryStep" text-center>
 		<ion-button type="button" class="ion-no-margin" [disabled]="inProgress" color="light" (click)="isSummaryStep = false">

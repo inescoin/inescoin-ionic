@@ -183,13 +183,12 @@ export class SendPage implements OnInit {
       this.publicKey = wallets[this.from].publicKey;
     }
 
-
     let decrypted: any = this
       .transactionService
       .decryptWithPassword(this.data, this.password);
 
     if (!this.password) {
-      this.badPassword = true;
+      this.presentToast(this.doorgetsTranslateService.instant('#Bad password'));
       return;
     }
 
@@ -205,7 +204,8 @@ export class SendPage implements OnInit {
       }), decrypted.address, decrypted.publicKey, decrypted.privateKey);
     } else {
       this.inProgress = false;
-      this.badPassword = true;
+      this.password = '';
+      this.presentToast(this.doorgetsTranslateService.instant('#Bad password'));
     }
   }
 
