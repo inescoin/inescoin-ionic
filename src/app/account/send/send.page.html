@@ -9,22 +9,23 @@
 
 <ion-content>
 	<ion-list *ngIf="!isSummaryStep">
-	  <ion-item>
+
+		<ion-button expand="block" color="light" (click)="openSelectAddressModal()">
+			<ion-icon name="wallet"></ion-icon> {{ '#Choose wallet' | dgTranslate }}
+		</ion-button>
+
+		<ion-item>
 	    <ion-label>{{ '#From' | dgTranslate }}</ion-label>
-	    <ion-select [(ngModel)]="from">
-	    	<ion-select-option
-	    		*ngFor="let address of getAdressesArray()"
-	    		value="{{ address.address }}">
-	    		 {{ address.address }} - {{ address.amount }} {{ inescoinConfig.symbol }}
-	    	</ion-select-option>
-	    </ion-select>
+	    <ion-label *ngIf="from">{{ from }}</ion-label>
 	  </ion-item>
+
 	  <ion-item>
 	    	<ion-label>{{ '#Balance' | dgTranslate }}</ion-label>
 		    <b>{{ getAvailableBalance() }} {{ inescoinConfig.symbol }}</b>
 	  </ion-item>
+
 		<ion-button expand="block" color="light" (click)="openSelectContactModal()">
-			<ion-icon icon="contacts"></ion-icon> {{ '#Contacts' | dgTranslate }}
+			<ion-icon icon="contacts"></ion-icon> {{ '#Choose contact' | dgTranslate }}
 		</ion-button>
 
 	  <ion-item>

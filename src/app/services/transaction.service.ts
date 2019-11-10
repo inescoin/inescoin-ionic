@@ -60,10 +60,7 @@ export class TransactionService {
         publicKey: publicKey
       };
 
-      //console.log('wrappedMessage', wrappedMessage);
-
       this.httpService.post('transaction', wrappedMessage).subscribe((res) => {
-      	//console.log('transaction response: ', res);
         this.onRemoteResponse.emit(res);
       })
     } else {
@@ -85,7 +82,6 @@ export class TransactionService {
           this.sendToNode(messageData, publicKey, privateKey);
         });
       }
-      //console.log('wallet', wallet);
     });
 
   }

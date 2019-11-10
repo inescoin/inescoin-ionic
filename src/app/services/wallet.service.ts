@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 })
 export class WalletService {
   onListUpdated: any = new EventEmitter();
+  onSelected = new EventEmitter();
 
   accounts = {};
 

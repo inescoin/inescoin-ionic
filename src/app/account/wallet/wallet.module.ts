@@ -27,13 +27,14 @@ import { WalletTransferPage } from './wallet-account/wallet-transfer/wallet-tran
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 
+import { SharedModule } from '../../shared.module';
+
 export function newNgTranslate(http: Http) {
   return new NgTranslate(http, '../../assets/locale');
 }
 
 registerLocaleData(localeFr, 'fr');
 
-import { CryptoAmountPipe } from '../../pipes/crypto-amount.pipe';
 import { inescoinConfig } from '../../../config/inescoin.config';
 
 const config: SocketIoConfig = { url: inescoinConfig.messengerAddress, options: {} };
@@ -67,6 +68,7 @@ const routes: Routes = [
       name: '__inescoin',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
+    SharedModule,
   ],
   providers: [
     Clipboard,
@@ -86,7 +88,6 @@ const routes: Routes = [
     WalletTransferPage,
     WalletImportPage,
     WalletSendPage,
-    CryptoAmountPipe,
   ]
 })
 export class WalletPageModule {}

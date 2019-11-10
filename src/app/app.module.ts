@@ -24,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { inescoinConfig } from '../config/inescoin.config';
 import { SelectContactComponent } from './modals/select-contact/select-contact.component';
+import { SelectAddressComponent } from './modals/select-address/select-address.component';
 import { QrCodeModalComponent } from './modals/qr-code-modal/qr-code-modal.component';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
@@ -34,13 +35,26 @@ export function newNgTranslate(http: Http) {
 }
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
+import { SharedModule } from './shared.module';
+
 registerLocaleData(localeFr, 'fr');
 
 // const config: SocketIoConfig = { url: inescoinConfig.messengerAddress, options: {} };
 
 @NgModule({
-  declarations: [AppComponent, SelectContactComponent, ContactsCreatePage, QrCodeModalComponent],
-  entryComponents: [SelectContactComponent, ContactsCreatePage, QrCodeModalComponent],
+  declarations: [
+    AppComponent,
+    SelectContactComponent,
+    ContactsCreatePage,
+    QrCodeModalComponent,
+    SelectAddressComponent,
+  ],
+  entryComponents: [
+    SelectContactComponent,
+    SelectAddressComponent,
+    ContactsCreatePage,
+    QrCodeModalComponent
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -62,6 +76,7 @@ registerLocaleData(localeFr, 'fr');
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     HttpClientModule,
+    SharedModule
   ],
   providers: [
     StatusBar,
@@ -72,6 +87,8 @@ registerLocaleData(localeFr, 'fr');
     QRScanner,
   ],
   exports: [
+    SelectContactComponent,
+    SelectAddressComponent,
   ],
   bootstrap: [AppComponent]
 })

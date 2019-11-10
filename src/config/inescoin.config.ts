@@ -4,5 +4,5 @@ export const inescoinConfig = {
 	unit: 1000000000,
 	symbol: 'INES',
 	name: 'inescoin',
-	configHash: '19924913f08605e99f0a3aeb361b9a00'
+	configHash: 'b6a049fa61e4b40b44be1e40962c7461'
 }

@@ -11,6 +11,7 @@ import { ContactsService } from '../../services/contacts.service';
 import { TransactionService } from '../../services/transaction.service';
 import { ConfigService } from '../../services/config.service';
 import { SelectContactComponent } from '../../modals/select-contact/select-contact.component';
+import { SelectAddressComponent } from '../../modals/select-address/select-address.component';
 
 import { ContactsCreatePage } from '../contacts/contacts-create/contacts-create.page';
 
@@ -90,6 +91,12 @@ export class SendPage implements OnInit {
       this.transfers[0].walletId = contact.walletId || '';
     });
 
+    this.subjects.onSelectedWallet = this.walletService.onSelected.subscribe((wallet: any) => {
+      console.log(wallet);
+      this.from = wallet && wallet.address || '';
+      this.noWallet = false;
+    });
+
     let current = await this.configService.getLanguage();
     this.doorgetsTranslateService.init({
       languages: ['en', 'fr', 'es'],
@@ -107,13 +114,12 @@ export class SendPage implements OnInit {
       return;
     }
 
-    this.noWallet = false;
+    this.noWallet = true;
     let walletsKeys = Object.keys(this.wallet);
 
     if (walletsKeys.length) {
-      this.from = walletsKeys[0]
+      // this.from = walletsKeys[0]
     } else {
-      this.noWallet = true;
     }
 	}
 
@@ -226,6 +232,14 @@ export class SendPage implements OnInit {
     return await modal.present();
   }
 
+  async openSelectAddressModal() {
+    const modal = await this.modalController.create({
+      component: SelectAddressComponent
+    });
+
+    return await modal.present();
+  }
+
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
@@ -243,5 +257,7 @@ export class SendPage implements OnInit {
 
   ngOnDestroy() {
     console.log('SendPage::destroy');
+    this.subjects.onSelectedWallet && this.subjects.onSelectedWallet.unsubscribe();
+    this.subjects.onSelectedContact && this.subjects.onSelectedContact.unsubscribe();
   }
 }
