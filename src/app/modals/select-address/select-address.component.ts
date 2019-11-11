@@ -39,7 +39,6 @@ export class SelectAddressComponent implements OnInit {
   }
 
   choose(wallet) {
-  	console.log('Address: ', this.wallet[wallet.address]);
   	this.walletService.onSelected.emit({
   		address: wallet.address,
   		publicKey: this.wallet[wallet.address].publicKey

@@ -1,0 +1,22 @@
+<ion-header class="ion-top-show">
+  <ion-toolbar color="tertiary">
+    <ion-title><ion-icon icon="lock"></ion-icon> {{ '#Export keys' | dgTranslate }}</ion-title>
+    <ion-buttons slot="end">
+	    <ion-icon name="close" style="zoom:2.0;" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+	 <ion-card-content class="ion-text-center">
+	    <p  *ngIf="wallet">
+				<ion-icon name="wallet"></ion-icon> {{ wallet.address }}
+				<ngx-qrcode
+				      qrc-element-type="canvas"
+				      [qrc-value]="getQrCodeWallet()"
+				      qrc-class="aclass"
+				      qrc-errorCorrectionLevel="L">
+				</ngx-qrcode>
+	    </p>
+	  </ion-card-content>
+</ion-content>

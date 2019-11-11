@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <p *ngIf="wallet && wallet.address">
+    <ion-label position="stacked"><ion-icon color="wallet">*</ion-icon> {{ wallet.address }} </ion-label>
+  </p>
 	<ion-list lines="full" class="ion-no-margin ion-no-padding">
     <ion-item>
       <ion-label position="stacked">{{ '#Password' | dgTranslate }} <ion-text color="danger">*</ion-text></ion-label>
@@ -17,6 +20,10 @@
   </ion-list>
 
 	<div class="ion-padding">
-		<ion-button expand="block" type="submit" class="ion-no-margin" (click)="create()">{{ '#Create new account' | dgTranslate }}</ion-button>
-	</div>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="create()">{{ '#Create new account' | dgTranslate }}</ion-button>
+  </div>
+
+  <div class="ion-padding">
+    <ion-button expand="block" type="submit" class="ion-no-margin" color="light" (click)="scanQRCode()">{{ '#Scan QR code' | dgTranslate }}</ion-button>
+  </div>
 </ion-content>

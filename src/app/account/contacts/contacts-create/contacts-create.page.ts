@@ -51,7 +51,6 @@ export class ContactsCreatePage implements OnInit {
     });
 
     this.subjects.scan = this.qrScannerService.onScan.subscribe((result) => {
-        console.log('ContactsCreateComponent:qrScannerService');
         if (!result.contact) {
           return;
         }
@@ -66,8 +65,6 @@ export class ContactsCreatePage implements OnInit {
         this.contact = _contact;
         this.form.patchValue(_contact);
 
-        console.log(result);
-        console.log(_contact);
     });
   }
 
@@ -91,7 +88,6 @@ export class ContactsCreatePage implements OnInit {
   paste() {
     this.clipboard.paste().then(
       (resolve: string) => {
-        console.log(resolve);
         let contact;
         try {
           contact  = JSON.parse(resolve);
@@ -138,8 +134,6 @@ export class ContactsCreatePage implements OnInit {
 
     //        // start scanning
     //        this.scanSub = this.qrScanner.scan().subscribe((contact: any) => {
-    //          console.log('Scanned contact 9');
-    //          console.log(typeof contact);
 
     //          let _contact = JSON.parse(contact);
 
@@ -164,22 +158,18 @@ export class ContactsCreatePage implements OnInit {
     //        // you must use QRScanner.openSettings() method to guide the user to the settings page
     //        // then they can grant the permission from there
     //         this.qrScanner.hide().then((s: any) => {
-    //           console.log(JSON.stringify(s));
     //         }); // hide camera preview
     //      } else {
     //         this.qrScanner.hide().then((s: any) => {
-    //           console.log(JSON.stringify(s));
     //         }); // hide camera preview
     //        // permission was denied, but not permanently. You can ask for permission again at a later time.
     //      }
     //   })
-    //   .catch((e: any) => console.log('Error is', e));
   // }
 
   // closeCam() {
   //    this.qrScanner.hide(); // hide camera preview
   //    this.qrScanner.destroy().then((e: any) => {
-  //      console.log(JSON.stringify(e));
   //    });
   // }
 

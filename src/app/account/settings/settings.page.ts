@@ -42,7 +42,6 @@ export class SettingsPage implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log('SettingsPage::destroy');
   }
 
 }

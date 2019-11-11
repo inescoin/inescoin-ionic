@@ -47,7 +47,6 @@ export class SelectContactComponent implements OnInit {
     });
 
     this.subjects.onSelectedContact = this.contactsService.onSelected.subscribe((contact) => {
-    	console.log('SelectContactComponent::contact 11');
       // this.choose(contact);
       if (this.modalController && this.modalController.dismiss) {
 	      setTimeout(() => {

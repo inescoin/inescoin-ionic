@@ -4,6 +4,8 @@ import { HttpService } from './http/http.service';
 import { Storage } from '@ionic/storage';
 import { inescoinConfig } from '../../config/inescoin.config';
 
+import * as _ from 'lodash';
+
 import { saveAs } from 'file-saver';
 
 @Injectable({
@@ -58,6 +60,16 @@ export class WalletService {
     }
   }
 
+  openData(data, password) {
+    let result = null;
+    try {
+      let wallet = this.cryptoJsService.decryptFromPassword(data, password);
+      result = wallet ? JSON.parse(wallet) : null;
+    } catch(e) {}
+
+    return result;
+  }
+
   save(address, data, password) {
     try {
       let _data = JSON.stringify(data);
@@ -69,7 +81,6 @@ export class WalletService {
         publicKey: data.publicKey
       };
 
-      console.log('this.accounts[address]', this.accounts[address], data);
       this.saveToStorage();
       saveAs(blob, address + '.wallet');
     } catch(e) {
@@ -83,6 +94,34 @@ export class WalletService {
 
   saveToHomeStorage(accounts) {
     this.storage.set(inescoinConfig.name + '-home', JSON.stringify(accounts))
+    this.onListUpdated.emit(true);
+  }
+
+  async removeWallet(address) {
+    let home = await this.storage.get(inescoinConfig.name + '-home');
+    let wallets = await this.storage.get(inescoinConfig.name + '-wallets');
+
+    if (home) {
+      home = JSON.parse(home);
+    }
+
+    if (wallets) {
+      wallets = JSON.parse(wallets);
+    }
+
+    if (home[address]) {
+      delete home[address];
+      this.storage.set(inescoinConfig.name + '-home', JSON.stringify(home));
+    }
+
+    if (wallets[address]) {
+      delete wallets[address];
+      this.accounts = wallets;
+      this.storage.set(inescoinConfig.name + '-wallets', JSON.stringify(wallets));
+    }
+
+    this.storage.remove(inescoinConfig.name + '-account-' + address);
+
     this.onListUpdated.emit(true);
   }
 
@@ -111,7 +150,6 @@ export class WalletService {
   }
 
   getWalletAdressesInfos(addresses) {
-    console.log('getWalletAdressesInfos', addresses);
     return this.httpService.post('get-wallet-addresses-infos', {
       walletAddresses: addresses
     })

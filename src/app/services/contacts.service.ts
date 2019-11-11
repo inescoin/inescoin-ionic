@@ -37,9 +37,6 @@ export class ContactsService {
   }
 
   async add(contact) {
-    console.log('contact added');
-    console.log(JSON.stringify(contact));
-
     const chars = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
     const id: any = [...Array(10)].map(i=>(~~(Math.random()*36)).toString(36)).join('');
 

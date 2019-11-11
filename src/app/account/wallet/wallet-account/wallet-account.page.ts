@@ -11,12 +11,20 @@ import { inescoinConfig } from '../../../../config/inescoin.config';
 
 import { WalletTransferPage } from './wallet-transfer/wallet-transfer.page';
 
+import { ExportKeysComponent } from '../../../modals/export-keys/export-keys.component';
+
 @Component({
   selector: 'app-wallet-account',
   templateUrl: './wallet-account.page.html',
   styleUrls: ['./wallet-account.page.scss']
 })
 export class WalletAccountPage implements OnInit {
+  inProgress: boolean = false;
+
+  pendingRemove: boolean = false;
+
+  password: string = '';
+
   inescoinConfig = inescoinConfig;
 
 	account: any = {
@@ -46,7 +54,6 @@ export class WalletAccountPage implements OnInit {
     private modalController: ModalController) { }
 
   async ngOnInit() {
-    console.log('socialSharing', this.socialSharing);
 
     let account = this.navParams.get('account');
   	let address = account.address;
@@ -55,7 +62,6 @@ export class WalletAccountPage implements OnInit {
 
       this.account.address = address;
       this.account.wallet = this.walletService.accounts[address];
-      console.log('this.account', this.account, this.walletService.accounts);
 
       this.subjects.onGetWalletInfos = this.walletService.getWalletInfos(address).subscribe((walletInfos: any) => {
         if (!walletInfos.error) {
@@ -84,7 +90,6 @@ export class WalletAccountPage implements OnInit {
   }
 
   async copy() {
-    console.log('Copied', this.getQrCodeAddress());
     this.clipboard.copy(this.getQrCodeAddress());
 
     const toast = await this.toastController.create({
@@ -112,6 +117,21 @@ export class WalletAccountPage implements OnInit {
     }
   }
 
+  async openExportKeysModal() {
+    const modal = await this.modalController.create({
+      component: ExportKeysComponent,
+      componentProps: {
+        'wallet': {
+          'address': this.account.address,
+          'data': this.account.wallet.data,
+          'publicKey': this.account.wallet.publicKey,
+        }
+      }
+    });
+
+    return await modal.present();
+  }
+
   getQrCodeAddress() {
     return JSON.stringify({
       address: this.account.address,
@@ -135,6 +155,39 @@ export class WalletAccountPage implements OnInit {
 
   private _saveToCache(address, data) {
     this.storage.set(inescoinConfig.name + '-account-' + address, JSON.stringify(data));
+  }
+
+  async removeWallet() {
+    this.inProgress = true;
+
+    let data = this.walletService.openData(this.account.wallet.data, this.password);
+    if (!data) {
+      this.password = '';
+      this.inProgress = false;
+
+      const toast = await this.toastController.create({
+        message: this.doorgetsTranslateService.instant('#Bad password'),
+        duration: 2000
+      });
+      toast.present();
+      return;
+    }
+
+    await this.walletService.removeWallet(this.account.address);
+
+    const timer = async () => {
+      this.dismiss();
+      this.pendingRemove = false;
+      this.inProgress = false;
+
+      const toast = await this.toastController.create({
+        message: this.doorgetsTranslateService.instant('#Wallet deleted'),
+        duration: 2000
+      });
+      toast.present();
+    };
+
+    setTimeout(timer, 1000);
   }
 
   ngOnDestroy() {

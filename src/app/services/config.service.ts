@@ -9,7 +9,6 @@ import { Storage } from '@ionic/storage';
 export class ConfigService {
 
 	constructor(private storage: Storage) {
-		console.log('inescoinConfig', inescoinConfig.name);
 	}
 
 	setLanguage(langue) {

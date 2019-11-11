@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 import { WalletService } from '../../../../services/wallet.service';
@@ -25,9 +24,6 @@ export class WalletTransferPage implements OnInit {
   ngOnInit() {
     this.transfer = this.navParams.get('transfer');
     this.account = this.navParams.get('account');
-
-    console.log(JSON.stringify(this.transfer));
-    console.log(JSON.stringify(this.account));
   }
 
   getInfos() {

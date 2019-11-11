@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { QrScannerService } from '../../services/ui/qr-scanner.service';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -22,25 +23,60 @@ export class QrCodeModalComponent implements OnInit {
   availableDevices: MediaDeviceInfo[];
   selectedDevice: MediaDeviceInfo;
 
+  ionApp: any;
+
   constructor(
+    private platform: Platform,
   	private qrScannerService: QrScannerService,
   	private qrScanner: QRScanner,
   	private modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ionApp = <HTMLElement>document.getElementsByTagName('ion-app')[0];
+
+    const startScanner = () => {
+      this.scanSub = this.qrScanner.scan().subscribe((contact: string) => {
+
+          let _contact;
+          try {
+            _contact= JSON.parse(contact);
+          } catch(e) {}
+
+          if (_contact) {
+           this.qrScannerService.onScan.emit({
+             contact: _contact
+           });
+          }
+
+          this.dismiss();
+      });
+
+      this.qrScanner.show();
+      this.ionApp.style.display = 'none';
+    };
+
+    this.platform.backButton.subscribe(() => {
+      this.dismiss();
+    });
+
+    startScanner();
+  }
+
 
   dismiss() {
+    this.qrScanner.hide();
+    this.scanSub && this.scanSub.unsubscribe();
+    this.ionApp.style.display = 'block';
+
     this.modalController.dismiss();
   }
 
   showCamera() {
     (window.document.querySelector('ion-app') as HTMLElement).classList.add('cameraView');
-    console.log(window.document.querySelector('ion-app').classList.contains('cameraView'));
   }
 
   hideCamera() {
     (window.document.querySelector('ion-app') as HTMLElement).classList.remove('cameraView');
-    console.log(window.document.querySelector('ion-app').classList.contains('cameraView'));
   }
 
   toggleFlashLight(){
@@ -64,10 +100,6 @@ export class QrCodeModalComponent implements OnInit {
   }
 
   ionViewWillEnter(){
-			console.log('--------------------++++++++++++++++++');
-			console.log('--------------------++++++++++++++++++');
-			console.log('--------------------++++++++++++++++++');
-			console.log('--------------------++++++++++++++++++');
 
      this.showCamera();
 
@@ -76,8 +108,6 @@ export class QrCodeModalComponent implements OnInit {
 		     if (status.authorized) {
 		       // start scanning
 		       this.scanSub = this.qrScanner.scan().subscribe((contact: string) => {
-			        console.log('Scanned contact');
-			        console.log(contact);
 
 							let _contact;
 							try {
@@ -93,10 +123,6 @@ export class QrCodeModalComponent implements OnInit {
 		         	this.dismiss();
 		       });
 
-	       		console.log('----------------------||||||||||||||||||||||||||');
-			  		console.log('----------------------||||||||||||||||||||||||||');
-			  		console.log('----------------------||||||||||||||||||||||||||');
-			  		console.log('----------------------||||||||||||||||||||||||||');
 		        this.qrScanner.show();
 
 		     } else if (status.denied) {
@@ -109,7 +135,7 @@ export class QrCodeModalComponent implements OnInit {
 		         this.dismiss();
 		     }
 		  })
-		  .catch((e: any) => console.log('Error is', e));
+		  .catch((e: any) => {});
   }
 
   ionViewWillLeave(){

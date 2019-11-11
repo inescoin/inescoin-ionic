@@ -85,7 +85,6 @@ export class WalletPage implements OnInit {
   }
 
   getWalletAdressesInfos() {
-    console.log('this.wallet', this.wallet);
     return Object.keys(this.wallet).join(',');
   }
 
@@ -99,7 +98,6 @@ export class WalletPage implements OnInit {
         .subscribe((addresses) => {
           this.walletService.saveToHomeStorage(addresses);
           this.addresses = addresses;
-          console.log('addresses', addresses);
       });
     }
   }
@@ -130,13 +128,11 @@ export class WalletPage implements OnInit {
       .subscribe((addresses) => {
         this.walletService.saveToHomeStorage(addresses);
         this.addresses = addresses;
-        console.log('addresses', addresses);
         event.target.complete();
     });
   }
 
   ngOnDestroy() {
-    console.log('WalletPage::destroy');
     this.subjects.onUpdatedLanguage && this.subjects.onUpdatedLanguage.unsubscribe();
     this.subjects.onListUpdated && this.subjects.onListUpdated.unsubscribe();
     this.subjects.getWalletAdressesInfos && this.subjects.getWalletAdressesInfos.unsubscribe();

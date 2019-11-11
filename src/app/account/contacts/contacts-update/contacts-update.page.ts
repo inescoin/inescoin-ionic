@@ -49,10 +49,7 @@ export class ContactsUpdatePage implements OnInit {
     this.index = this.navParams.get('index');
     this.contact = contact;
 
-    console.log('ContactsUpdatePage::Index');
-    console.log(this.index);
 
-    console.log(JSON.stringify(contact));
     this.form = new FormGroup({
       label: new FormControl(contact.label, Validators.required),
       address: new FormControl(contact.address, Validators.compose([
@@ -66,7 +63,6 @@ export class ContactsUpdatePage implements OnInit {
 
   updateContact() {
     this.contactsService.contacts[this.index] = this.form.value;
-    console.log('updateContact');
     this.contactsService.saveToStorage(this.contactsService.contacts);
 
     setTimeout(() => {
@@ -75,7 +71,6 @@ export class ContactsUpdatePage implements OnInit {
   }
 
   async copy() {
-    console.log('Copied', this.getQrContact());
     this.clipboard.copy(this.getQrContact());
 
     const toast = await this.toastController.create({
@@ -100,7 +95,6 @@ export class ContactsUpdatePage implements OnInit {
   getQrContact() {
     return JSON.stringify(this.form.value);
   }
-
 
   dismiss() {
     this.modalController.dismiss({

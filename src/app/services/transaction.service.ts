@@ -69,8 +69,6 @@ export class TransactionService {
   }
 
   sendTransaction(fee, transfers, from, publicKey, privateKey) {
-    console.log('from', from);
-
     this.httpService.post('get-wallet-addresses-infos', {
       walletAddresses: from
     }).subscribe((wallet) => {

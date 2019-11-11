@@ -3,6 +3,7 @@ import { HttpModule, Http } from '@angular/http';
 import { HttpClientModule  } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
@@ -25,7 +26,9 @@ import { inescoinConfig } from '../config/inescoin.config';
 import { SelectContactComponent } from './modals/select-contact/select-contact.component';
 import { SelectAddressComponent } from './modals/select-address/select-address.component';
 import { QrCodeModalComponent } from './modals/qr-code-modal/qr-code-modal.component';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+
+import { ImportKeysComponent } from './modals/import-keys/import-keys.component';
+import { ExportKeysComponent } from './modals/export-keys/export-keys.component';
 
 import { ContactsCreatePage } from './account/contacts/contacts-create/contacts-create.page';
 
@@ -47,12 +50,16 @@ registerLocaleData(localeFr, 'fr');
     ContactsCreatePage,
     QrCodeModalComponent,
     SelectAddressComponent,
+    ImportKeysComponent,
+    ExportKeysComponent,
   ],
   entryComponents: [
     SelectContactComponent,
     SelectAddressComponent,
     ContactsCreatePage,
-    QrCodeModalComponent
+    QrCodeModalComponent,
+    ImportKeysComponent,
+    ExportKeysComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +94,8 @@ registerLocaleData(localeFr, 'fr');
   exports: [
     SelectContactComponent,
     SelectAddressComponent,
+    ImportKeysComponent,
+    ExportKeysComponent,
   ],
   bootstrap: [AppComponent]
 })

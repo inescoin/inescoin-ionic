@@ -16,7 +16,7 @@
 	  	</ion-card-subtitle>
 	  </ion-card-header>
 
-	  <ion-card-content class="ion-text-center">
+	  <ion-card-content *ngIf="!pendingRemove" class="ion-text-center">
 	    <p  *ngIf="account && account.wallet">
 	    	<input type="type" class="form-control" placeholder="{{ '#Label' | dgTranslate }}" [(ngModel)]="account.wallet.label" />
 				<ngx-qrcode
@@ -27,12 +27,23 @@
 				</ngx-qrcode>
 				<input type="type" class="form-control" placeholder="{{ '#Wallet Id' | dgTranslate }}" [(ngModel)]="account.wallet.walletId" />
 	    </p>
-
-	    <ion-button color="light" class="ion-text-center" (click)="copy()"><ion-icon name="copy" ></ion-icon> {{ ' #Copy' | dgTranslate  }}</ion-button>
+			<ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button color="light" class="ion-text-center mr-4" (click)="copy()"><ion-icon name="copy" ></ion-icon> {{ ' #Copy' | dgTranslate  }}</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="light" class="ion-text-center" (click)="openExportKeysModal()"><ion-icon name="lock" ></ion-icon> {{ ' #Private key' | dgTranslate  }}</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="danger" class="ion-text-center" (click)="pendingRemove=true"><ion-icon name="trash" ></ion-icon> {{ ' #Remove' | dgTranslate  }}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 	  </ion-card-content>
 	</ion-card>
 
-	<div *ngIf="account.transactions && account.transactions.length" >
+	<div *ngIf="!pendingRemove && account.transactions && account.transactions.length" >
 
 		<ion-list lines="none" class="app-list">
 			<ion-list-header>
@@ -52,5 +63,25 @@
 	  </ion-list>
 
 	</div>
+
+	<div *ngIf="pendingRemove">
+		<ion-list lines="full" class="ion-no-margin ion-no-padding">
+	    <ion-item>
+	      <ion-label position="stacked">{{ '#Password' | dgTranslate }} <ion-text color="danger">*</ion-text></ion-label>
+	      <ion-input required type="password" [(ngModel)]="password"></ion-input>
+	    </ion-item>
+	  </ion-list>
+    <p class="ion-text-center">{{ '#Are you sure?' | dgTranslate }}</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button [disabled]="inProgress" expand="block" color="light" type="submit" class="ion-no-margin" (click)="pendingRemove=false">{{ '#No' | dgTranslate }}</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button [disabled]="!password || inProgress" expand="block" color="danger" type="submit" class="ion-no-margin" (click)="removeWallet()">{{ '#Delete' | dgTranslate }}</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>

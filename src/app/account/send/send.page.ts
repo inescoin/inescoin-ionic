@@ -70,11 +70,9 @@ export class SendPage implements OnInit {
       this.inProgress = false;
       if (remoteResponse[0] && remoteResponse[0].error) {
         this.error = remoteResponse[0].error;
-        console.log('Transaction ERROR', this.error);
         this.presentToast(this.doorgetsTranslateService.instant(remoteResponse[0].error));
 
       } else {
-        console.log('Transaction OK !!!!!');
         this.presentToast(this.doorgetsTranslateService.instant('#Transaction sent!'));
         this.resetForm();
       }
@@ -85,14 +83,12 @@ export class SendPage implements OnInit {
     });
 
     this.subjects.onSelectedContact = this.contactsService.onSelected.subscribe((contact: any) => {
-      console.log(contact);
       this.transfers[0].to = contact.address || '';
       this.transfers[0].label = contact.label || '';
       this.transfers[0].walletId = contact.walletId || '';
     });
 
     this.subjects.onSelectedWallet = this.walletService.onSelected.subscribe((wallet: any) => {
-      console.log(wallet);
       this.from = wallet && wallet.address || '';
       this.noWallet = false;
     });
@@ -169,7 +165,6 @@ export class SendPage implements OnInit {
   }
 
   async send() {
-    console.log('Send Transaction', this.transfers, this.from);
     this.inProgress = true;
     this.badPassword = false;
 
@@ -194,7 +189,6 @@ export class SendPage implements OnInit {
 
     if (decrypted) {
       decrypted = JSON.parse(decrypted);
-      console.log('decrypted', decrypted);
       this.transactionService.sendTransaction(this.fee, this.transfers.map((transfer) => {
         return {
           amount: transfer.amount,
@@ -256,7 +250,6 @@ export class SendPage implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log('SendPage::destroy');
     this.subjects.onSelectedWallet && this.subjects.onSelectedWallet.unsubscribe();
     this.subjects.onSelectedContact && this.subjects.onSelectedContact.unsubscribe();
   }

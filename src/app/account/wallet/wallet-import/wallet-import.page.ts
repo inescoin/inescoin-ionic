@@ -28,16 +28,12 @@ export class WalletImportPage implements OnInit {
   	this.file = event.target && event.target.files && event.target.files[0];
   	this.account = {};
   	this.error.file = '';
-
-  	console.log('this.file ', this.file);
   }
 
   checkPassword() {
   	let fileReader = new FileReader();
     fileReader.onload = (e) => {
       let content = fileReader.result;
-      console.log('checkPassword:content', content);
-      console.log('checkPassword:password', this.password);
       let wallet = this.walletService.open(content, this.password);
       if (!wallet) {
       	this.error.file = 'File or password error';
