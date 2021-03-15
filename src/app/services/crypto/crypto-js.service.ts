@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import * as JSEncryptModule from 'jsencrypt';
+import { JSEncrypt } from 'jsencrypt';
 import * as CryptoJS from 'crypto-js';
 import * as Forge from 'node-forge';
 import * as Elliptic from 'elliptic';
 
 import { encrypt } from 'eccrypto';
-
 
 const secp256k1 = new Elliptic.ec("secp256k1"); // eslint-disable-line
 import { fromPrivate } from 'eth-lib/lib/account';
@@ -17,8 +16,9 @@ import Bytes from 'eth-lib/lib/bytes';
 
 const crypto = require('crypto');
 
-import { publicKeyConvert } from 'secp256k1';
+console.log(JSEncrypt);
 
+import { publicKeyConvert } from 'secp256k1';
 
 (window as any).global = window;
 // @ts-ignore
@@ -45,27 +45,27 @@ export class CryptoJsService {
   }
 
   encrypt(message, publicKey) {
-    let encrypt = new JSEncryptModule.JSEncrypt();
+    let encrypt = new JSEncrypt({});
     encrypt.setPublicKey(publicKey);
     return encrypt.encrypt(message);
   }
 
   decrypt(encrypted, privateKey) {
-    var decrypt = new JSEncryptModule.JSEncrypt();
+    var decrypt = new JSEncrypt({});
     decrypt.setPrivateKey(privateKey);
     return decrypt.decrypt(encrypted);
   }
 
   sign(message, privateKey) {
-    let encrypt = new JSEncryptModule.JSEncrypt();
+    let encrypt = new JSEncrypt({});
     encrypt.setPrivateKey(privateKey);
-    return encrypt.sign(message, CryptoJS.SHA256, "sha256");
+    return ''; //encrypt.sign(message, CryptoJS.algo.SHA256, "sha256");
   }
 
   verify(bytes, signature, publicKey) {
-    let verify = new JSEncryptModule.JSEncrypt();
+    let verify = new JSEncrypt({});
     verify.setPublicKey(publicKey);
-    return verify.verify(bytes, signature, CryptoJS.SHA256);
+    return ''; //verify.verify(bytes, signature, CryptoJS.SHA256);
   }
 
   ecSign(message, privateKey) {
@@ -181,7 +181,7 @@ export class CryptoJsService {
     identity.publicKey = publicKeyConvert(
         new Buffer(identity.publicKey, 'hex'),
         true
-    ).toString('hex');
+    ).toString();
 
     return identity;
   }

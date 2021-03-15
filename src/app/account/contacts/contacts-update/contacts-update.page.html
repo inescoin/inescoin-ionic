@@ -11,10 +11,10 @@
   <ion-card class="bg-card">
     <ion-card-content class="ion-text-center">
       <ngx-qrcode
-            qrc-element-type="canvas"
-            [qrc-value]="getQrContact()"
-            qrc-class="aclass"
-            qrc-errorCorrectionLevel="L">
+            elementType="canvas"
+            [value]="getQrContact()"
+            cssClass="aclass"
+            errorCorrectionLevel="L">
       </ngx-qrcode>
 
       <ion-button color="light" class="ion-text-center" (click)="copy()"><ion-icon name="copy" ></ion-icon> {{ ' #Copy' | dgTranslate  }}</ion-button>

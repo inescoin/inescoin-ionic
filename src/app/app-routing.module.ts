@@ -7,16 +7,16 @@ const routes: Routes = [
     redirectTo: 'wallet',
     pathMatch: 'full'
   },
-  { path: 'wallet', loadChildren: './account/wallet/wallet.module#WalletPageModule' },
-  { path: 'contacts', loadChildren: './account/contacts/contacts.module#ContactsPageModule' },
-  { path: 'messenger', loadChildren: './account/messenger/messenger.module#MessengerPageModule' },
-  { path: 'settings', loadChildren: './account/settings/settings.module#SettingsPageModule' },
-  { path: 'send', loadChildren: './account/send/send.module#SendPageModule' },
+  { path: 'wallet', loadChildren: () => import('./account/wallet/wallet.module').then(m => m.WalletPageModule) },
+  { path: 'contacts', loadChildren: () => import('./account/contacts/contacts.module').then(m => m.ContactsPageModule) },
+  { path: 'messenger', loadChildren: () => import('./account/messenger/messenger.module').then(m => m.MessengerPageModule) },
+  { path: 'settings', loadChildren: () => import('./account/settings/settings.module').then(m => m.SettingsPageModule) },
+  { path: 'send', loadChildren: () => import('./account/send/send.module').then(m => m.SendPageModule) },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

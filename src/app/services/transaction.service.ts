@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 
-import * as JSEncryptModule from 'jsencrypt';
+import { JSEncrypt } from 'jsencrypt';
 import * as CryptoJS from 'crypto-js';
 import { publicKeyConvert } from 'secp256k1';
 
@@ -87,7 +87,7 @@ export class TransactionService {
   private _doEncryption(fee, transfers, from, bankHash, publicKey, privateKey) {
     let encrypted = this._encryptTransaction(from, transfers);
 
-    let sign = new JSEncryptModule.JSEncrypt();
+    let sign = new JSEncrypt({});
     sign.setPrivateKey(privateKey);
     let date: any = Math.floor(Date.now() / 1000);
 

@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SelectAddressComponent } from './select-address.component';
 
@@ -7,7 +7,7 @@ describe('SelectAddressComponent', () => {
   let component: SelectAddressComponent;
   let fixture: ComponentFixture<SelectAddressComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SelectAddressComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

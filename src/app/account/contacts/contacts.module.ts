@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule, HttpClient  } from '@angular/common/http';
 import { HttpModule, Http } from '@angular/http';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -23,7 +24,7 @@ import { ContactsDetailsPage } from './contacts-details/contacts-details.page';
 import { ContactsUpdatePage } from './contacts-update/contacts-update.page';
 // import { QrCodeModalComponent } from '../../modals/qr-code-modal/qr-code-modal.component';
 
-export function newNgTranslate(http: Http) {
+export function newNgTranslate(http: HttpClient) {
   return new NgTranslate(http, '../../assets/locale');
 }
 
@@ -56,6 +57,7 @@ const routes: Routes = [
       name: '__inescoin',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
+    HttpClientModule,
   ],
   entryComponents: [
     // ContactsCreatePage,

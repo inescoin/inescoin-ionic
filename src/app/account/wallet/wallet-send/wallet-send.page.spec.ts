@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { WalletSendPage } from './wallet-send.page';
 
@@ -7,7 +7,7 @@ describe('WalletSendPage', () => {
   let component: WalletSendPage;
   let fixture: ComponentFixture<WalletSendPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ WalletSendPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

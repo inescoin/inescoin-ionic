@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
-import { HttpClientModule  } from '@angular/common/http';
+import { HttpClientModule, HttpClient  } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -32,14 +32,15 @@ import { ExportKeysComponent } from './modals/export-keys/export-keys.component'
 
 import { ContactsCreatePage } from './account/contacts/contacts-create/contacts-create.page';
 
-export function newNgTranslate(http: Http) {
+export function newNgTranslate(http: HttpClient) {
   return new NgTranslate(http, '../../assets/locale');
 }
+
+registerLocaleData(localeFr, 'fr');
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 import { SharedModule } from './shared.module';
 
-registerLocaleData(localeFr, 'fr');
 
 // const config: SocketIoConfig = { url: inescoinConfig.messengerAddress, options: {} };
 

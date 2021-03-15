@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient  } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule, Http } from '@angular/http';
 import { registerLocaleData } from '@angular/common';
@@ -24,11 +25,11 @@ import { WalletImportPage } from './wallet-import/wallet-import.page';
 import { WalletTransferPage } from './wallet-account/wallet-transfer/wallet-transfer.page';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
+import { Ng9PasswordStrengthBarModule } from 'ng9-password-strength-bar';
 
 import { SharedModule } from '../../shared.module';
 
-export function newNgTranslate(http: Http) {
+export function newNgTranslate(http: HttpClient) {
   return new NgTranslate(http, '../../assets/locale');
 }
 
@@ -60,13 +61,14 @@ const routes: Routes = [
       useFactory: (newNgTranslate),
       deps: [Http]
     }),
-    SocketIoModule,
-    PasswordStrengthBarModule,
+    SocketIoModule.forRoot(config),
+    Ng9PasswordStrengthBarModule,
     IonicStorageModule.forRoot({
       name: '__inescoin',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     SharedModule,
+    HttpClientModule,
   ],
   providers: [
     Clipboard,

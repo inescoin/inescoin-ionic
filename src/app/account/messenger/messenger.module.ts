@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient  } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule, Http } from '@angular/http';
 import { registerLocaleData } from '@angular/common';
@@ -13,7 +14,7 @@ import { DoorgetsTruncateModule } from 'doorgets-ng-truncate';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { DoorgetsTranslateModule , NgTranslate, NgTranslateAbstract } from 'doorgets-ng-translate';
 
-export function newNgTranslate(http: Http) {
+export function newNgTranslate(http: HttpClient) {
   return new NgTranslate(http, '../../assets/locale');
 }
 
@@ -41,6 +42,7 @@ const routes: Routes = [
       useFactory: (newNgTranslate),
       deps: [Http]
     }),
+    HttpClientModule,
   ],
   declarations: [MessengerPage]
 })

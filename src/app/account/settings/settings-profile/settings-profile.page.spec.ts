@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SettingsProfilePage } from './settings-profile.page';
 
@@ -7,7 +7,7 @@ describe('SettingsProfilePage', () => {
   let component: SettingsProfilePage;
   let fixture: ComponentFixture<SettingsProfilePage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SettingsProfilePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
